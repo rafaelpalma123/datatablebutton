@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Tables</title>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+  <style>
+    body {
+      background-color: #F08080;
+    
+    }
+    .container {
+      box-shadow: 0 0 15px;
+      border-radius: 10px;
+      padding: 10px;
+      background-color: white;
+    }
+    h1 {
+      text-align: center;
+      margin:80px 0px;
+      font-family: arial;
+      font-weight: 800;
+    }
+    .form-group {
+      margin:20px 0 ;
+    }
+    label {
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+   <h1>Student Information </h1>
+    <div id="employeeTable"></div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Teacher's Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <form>
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email">
+          </div>
+           <div class="form-group">
+            <label for="ContactNumber">Contact Number</label>
+            <input type="number" class="form-control" id="ContactNumber">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<!--    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script> -->
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script> 
+  <script>
+    const employees = [
+        {id:1, name:'Abdulwahid Asgar', email:'abdulwahidasgar@gmail.com', ContactNumber:'09128392398'},
+        {id:2, name:'Acer Arkin Dela Cruz', email:'acerdelacruz@gmail.com', ContactNumber:'09128392123'},
+        {id:3, name:'Aries Estacio', email:'ariesestacio@gmail.com', ContactNumber:'09128392456'},
+        {id:4, name:'Arvin Virata', email:'arvinvirata@gmail.com', ContactNumber:'09128392789'},
+        {id:5, name:'Carlos Jimwell Aquino', email:'carlosaquino@gmail.com', ContactNumber:'09128392423'},
+        {id:6, name:'Erica Mae Brosas', email:'ericabrosas@gmail.com', ContactNumber:'09128392523'},
+        {id:7, name:'Ester Grace C. Lipke', email:'esterlipke@gmail.com', ContactNumber:'09128392753'},
+        {id:8, name:'Fatima Arviel Romualdo', email:'fatimaromualdo@gmail.com', ContactNumber:'09128392634'},
+        {id:9, name:'Iris Joyce Oubasan', email:'irisoubasan@gmail.com', ContactNumber:'09128392464'},
+        {id:10, name:'John Patrick Solis', email:'johnsolis@gmail.com', ContactNumber:'09128392753'},
+        {id:11, name:'Rafael Palma', email:'rafaelpalma@gmail.com', ContactNumber:'09128392938'},
+        {id:12, name:'Ronel Banda', email:'ronelbanda@gmail.com', ContactNumber:'09128392693'},
+        {id:13, name:'Stephen Torres', email:'stephentorres@gmail.com', ContactNumber:'09128392309'}
+    ];
+
+    function displayEmployees() {
+      var mytable = `
+                  <div class="container">
+                    <table id="myTable" class="table table-striped">
+                      <thead>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Contact Number</th>
+                        <th>Option</th>
+                      </thead>
+                      <tbody>
+                        `;
+        for (var employee of employees) {  
+              mytable += "<tr><td>" + employee.name + "</td><td>" + employee.email + "</td><td>" + employee.ContactNumber + `</td><td><button class="btn btn-outline-dark" data-toggle="modal" data-target="#exampleModalCenter" onclick='log(`+ employee.id +`)'>Show Info.</button></td></tr>`; 
+        }
+
+        mytable += `
+                  </tbody>
+                </table>
+                </div>`;
+        document.getElementById("employeeTable").innerHTML = mytable;
+
+    }
+    displayEmployees();
+
+    function log(id) {
+      let employee = employees.filter((i) => i.id == id)
+          $("#exampleModal").modal();
+          assignValueToInput(employee);
+    }
+
+    function assignValueToInput(employee) {
+          document.getElementById('name').value = employee[0].name;
+          document.getElementById('email').value = employee[0].email;
+          document.getElementById('ContactNumber').value = employee[0].ContactNumber;
+    }
+  </script>
+   <script>
+    $(document).ready( function () {
+      $('#myTable').DataTable();
+      } );
+  </script>
+
+  
+
+
+</body>
+</html>
